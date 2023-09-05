@@ -4,7 +4,7 @@
   tasks:
   - name: Execute script
     block:
-    
+
     - name: Remove previous script results
       ansible.builtin.file:
         path: /tmp/script_result.txt
@@ -12,7 +12,7 @@
 
     - name: Execute delayed script
       ansible.builtin.shell: |
-        nohup sh -c "sleep 60; echo \"line 1\nline 2\nline 3\nscript finished\"" >/tmp/script_result.txt 2>&1 &
+        nohup sh -c 'sleep 60; echo "line 1\nline 2\nline 3\nscript finished"' >/tmp/script_result.txt 2>&1 &
 
     - name: Perform verifications on script result
       ansible.builtin.lineinfile:
