@@ -18,6 +18,6 @@
     delay: 10
     register: result
 
-- name: Reading script output
-  ansible.builtin.debug:
-    msg: "{{lookup('ansible.builtin.file', '/tmp/script_result.txt') }}"
+  - name: Reading script output
+    ansible.builtin.debug:
+      msg: "{{lookup('ansible.builtin.file', '/tmp/script_result.txt') }}"
