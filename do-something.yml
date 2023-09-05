@@ -3,6 +3,11 @@
 
   tasks:
 
+  - name: Remove previous script results
+    ansible.builtin.file:
+      path: /tmp/script_result.txt
+      state: absent
+
   - name: Execute delayed script
     ansible.builtin.shell: |
       nohup sh -c "sleep 60; echo \"line 1\nline 2\nline 3\nscript finished\"" >/tmp/script_result.txt 2>&1 &
@@ -14,7 +19,7 @@
       state: present
     check_mode: yes
     # until: (result is not changed) and (result is not failed)
-    until: result is not failed
+    until: result | success
     retries: 10
     delay: 10
     register: result
