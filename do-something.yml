@@ -1,0 +1,24 @@
+- name: Execute script and wait for the result
+  hosts: localhost
+
+  tasks:
+
+  - name: Execute delayed script
+    ansible.buitin.shell: |
+      nohup sh -c "sleep 60; echo \"line 1\nline 2\nline 3\nscript finished\"" >/tmp/script_result.txt 2>&1 &
+
+  - name: Perform verifications on script result
+    ansible.builtin.lineinfile:
+      name: /tmp/script_result.txt
+      line: "script finished"
+      state: present
+    check_mode: yes
+    retry: 
+    until: (result is not changed) and (result is not failed)
+    retries: 10
+    delay: 10
+    register: result
+
+- name: Reading script output
+  ansible.builtin.debug:
+    msg: "{{lookup('ansible.builtin.file', '/tmp/script_result.txt') }}"
