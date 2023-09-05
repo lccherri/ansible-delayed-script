@@ -4,7 +4,7 @@
   tasks:
 
   - name: Execute delayed script
-    ansible.buitin.shell: |
+    ansible.builtin.shell: |
       nohup sh -c "sleep 60; echo \"line 1\nline 2\nline 3\nscript finished\"" >/tmp/script_result.txt 2>&1 &
 
   - name: Perform verifications on script result
