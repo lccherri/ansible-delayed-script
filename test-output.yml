@@ -1,0 +1,13 @@
+---
+- hosts: "localhost"
+  environment:
+    http_proxy:  ""
+    https_proxy: ""
+    HTTP_PROXY:  ""
+    HTTPS_PROXY: ""
+  vars_files:
+  - vars/main.yaml
+  tasks:
+  - name: print env
+    ansible.builtin.debug:
+      msg: "{{ snow_host }} / {{ hub_cluster }} / {{ policy_name }}"
