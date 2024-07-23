@@ -17,7 +17,7 @@
           {% for key, value in policy_violations.items() %}
 
           Cluster: {{ key }}
-          {{ value.details.violation_message }}
+          {{ value.violation_message }}
           {% endfor %}
 
     - name: Print Short Description
