@@ -8,6 +8,24 @@
   vars_files:
   - vars/main.yaml
   tasks:
-  - name: print env
-    ansible.builtin.debug:
-      msg: "{{ snow_host }} / {{ hub_cluster }} / {{ policy_name }}"
+
+    - name: Prepara a descrição de violação de política
+      set_fact:
+        violation_short_description: Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM
+        violation_descriptions: |
+          A política {{ policy_namespace }}/{{ policy_name }} foi violada para os seguintes clusters:
+          {% for key, value in policy_violations.iteritems() %}
+
+          Cluster: {{ key }}
+          {{ value.details.violation_message }}
+          {% endfor %}
+
+    - name: Print Short Description
+      ansible.builtin.debug:
+        msg: |
+          {{ violation_short_description }}
+
+    - name: Print Description
+      ansible.builtin.debug:
+        msg: |
+          {{ violation_descriptions }}
