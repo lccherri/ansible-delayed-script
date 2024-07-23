@@ -8,7 +8,6 @@
   vars_files:
   - vars/main.yaml
   tasks:
-
     - name: Prepara a descrição de violação de política
       set_fact:
         violation_short_description: Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM
@@ -21,12 +20,10 @@
           {% endfor %}
 
           Mais detalhes sobre a violação desta política podem ser encontrados no console do RHACM em https://{{ hub_cluster }}
-
     - name: Print Short Description
       ansible.builtin.debug:
         msg: |
           {{ violation_short_description }}
-
     - name: Print Description
       ansible.builtin.debug:
         msg: |
