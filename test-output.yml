@@ -17,8 +17,10 @@
           {% for key, value in policy_violations.items() %}
 
           Cluster: {{ key }}
-          {{ value.violation_message }}
+          Violação: {{ value.violation_message }}
           {% endfor %}
+
+          Mais detalhes sobre a violação desta política podem ser encontrados no console do RHACM em https://{{ hub_cluster }}
 
     - name: Print Short Description
       ansible.builtin.debug:
