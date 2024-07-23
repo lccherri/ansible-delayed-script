@@ -14,7 +14,7 @@
         violation_short_description: Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM
         violation_descriptions: |
           A política {{ policy_namespace }}/{{ policy_name }} foi violada para os seguintes clusters:
-          {% for key, value in policy_violations.iteritems() %}
+          {% for key, value in policy_violations.items() %}
 
           Cluster: {{ key }}
           {{ value.details.violation_message }}
