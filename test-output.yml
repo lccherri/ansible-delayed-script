@@ -10,21 +10,32 @@
   tasks:
     - name: Prepara a descrição de violação de política
       set_fact:
-        violation_short_description: Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM
-        violation_descriptions: |
-          A política {{ policy_namespace }}/{{ policy_name }} foi violada para os seguintes clusters:
-          {% for key, value in policy_violations.items() %}
+        violation_short_description: >
+          {% if snow_short_description is defined %}
+            "{{ snow_short_description }} [acm-policy: {{ policy_namespace }}/{{ policy_name }}]"
+          {% else %}
+            "Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM [acm-policy: {{ policy_namespace }}/{{ policy_name }}]"
+          {% endif %}
+        violation_description: |
+          {% if snow_description is defined %}
+            "{{ snow_description }}"
+          {% else %}
+            A política {{ policy_namespace }}/{{ policy_name }} foi violada para os seguintes clusters:
+            {% for key, value in policy_violations.items() %}
 
-          Cluster: {{ key }}
-          Violação: {{ value.violation_message }}
-          {% endfor %}
+            Cluster: {{ key }}
+            Violação: {{ value.violation_message }}
+            {% endfor %}
 
-          Mais detalhes sobre a violação desta política podem ser encontrados no console do RHACM em https://{{ hub_cluster }}
+            Mais detalhes sobre a violação desta política podem ser encontrados no console do RHACM em https://{{ hub_cluster }}
+
+            {% if snow_description_complement is defined %}
+            {{ snow_description_complement }}
+            {% endif %}
+          {% endif %}
     - name: Print Short Description
       ansible.builtin.debug:
-        msg: |
-          {{ violation_short_description }}
+        msg: "{{ violation_short_description }}"
     - name: Print Description
       ansible.builtin.debug:
-        msg: |
-          {{ violation_descriptions }}
+        msg: "{{ violation_description }}"
