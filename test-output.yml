@@ -12,10 +12,11 @@
       set_fact:
         violation_short_description: >
           {% if snow_short_description is defined %}
-          {{ snow_short_description }} [acm-policy: {{ policy_namespace }}/{{ policy_name }}]
+          {{ snow_short_description }} 
           {% else %}
-          Violação da política {{ policy_namespace }}/{{ policy_name }} no RHACM [acm-policy: {{ policy_namespace }}/{{ policy_name }}]
+          Violação da política {{ policy_name }} no RHACM 
           {% endif %}
+          [acm-policy: {{ policy_namespace }}/{{ policy_name }}]
         violation_description: |
           {% if snow_description is defined %}
           {{ snow_description }}
