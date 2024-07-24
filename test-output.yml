@@ -21,7 +21,7 @@
           {%- if snow_description is defined -%}
           {{ snow_description }}
           {%- else -%}
-          A política {{ policy_namespace }}/{{ policy_name }} foi violada para os seguintes clusters:
+          A política {{ policy_name }}, na namespace {{ policy_namespace }} foi violada para os seguintes clusters:
           {% for key, value in policy_violations.items() %}
 
           Cluster: {{ key }}
