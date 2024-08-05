@@ -41,3 +41,6 @@
     - name: Print Description
       ansible.builtin.debug:
         msg: "{{ violation_description }}"
+    - name: Print Vars
+      ansible.builtin.debug:
+        msg: "{{ incident_impact }} | {{ incident_urgency }} | {{ incident_category }} | {{ incident_subcategory }} | {{ incident_environment }} | {{ incident_sintomas }}"
